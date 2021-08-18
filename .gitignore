@@ -1,0 +1,9 @@
+.pio
+.vscode
+data
+lib
+www
+mklittlefs
+mklittlefs.exe
+etags.txt
+user_*.ini
