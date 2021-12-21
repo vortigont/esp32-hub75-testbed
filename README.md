@@ -42,3 +42,6 @@ platformio run -t upload
 ```
 
 That's it. Controller should reboot and enable WiFi.
+
+
+<img src="https://user-images.githubusercontent.com/25991192/129889094-936d15fa-2074-4b48-b181-eccb5fd03f02.png" alt="testbed WebUI" width="40%"/>

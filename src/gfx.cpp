@@ -91,6 +91,15 @@ void gfxGradient(uint8_t r, uint8_t g, uint8_t b){
   uint8_t _r=0, _g=0, _b=0;
   uint16_t y = vmatrix->virtualResY;
 
+/*
+  uint32_t cnt=0;
+  vmatrix->flipDMABuffer();
+  while(!vmatrix->backbuffready()) { ++cnt;}
+
+  LOG(print, F("CNT: "));
+  LOG(println, cnt);
+*/
+
   do {
     --y;
     _b = y*b/vmatrix->virtualResY;
@@ -102,6 +111,15 @@ void gfxGradient(uint8_t r, uint8_t g, uint8_t b){
         vmatrix->drawPixelRGB888( x, y, _r, _g, _b);
     } while(x);
   } while(y);
+
+/*
+  cnt = 0;
+  vmatrix->showDMABuffer();
+  while(!vmatrix->backbuffready()) { ++cnt;}
+  LOG(print, F("CNT: "));
+  LOG(println, cnt);
+*/
+
 }
 
 // draw lines

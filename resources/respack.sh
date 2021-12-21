@@ -5,7 +5,7 @@ USAGE="Usage: `basename $0` [-h] [-t embuitag] args"
 # etag file
 tags=etags.txt
 # embui branch/tag name to fetch
-embuitag="feat"
+embuitag="v2.6"
 embuirepo='vortigont/EmbUI'
 
 refresh_styles=0

@@ -1,6 +1,3 @@
-// How to use this library with a FM6126 panel, thanks goes to:
-// https://github.com/hzeller/rpi-rgb-led-matrix/issues/746
-
 #include <Arduino.h>
 #include "main.h"
 #include <FastLED.h>
@@ -47,14 +44,6 @@
 
 // End of default setup for RGB Matrix 64x32 panel
 
-/* -------------------------- Display Config Initialisation -------------------- */
-// Virtual Panl dimensions
-#define VPANEL_W 128
-#define VPANEL_H 128
-
-//std::unique_ptr<VirtualMatrixPanel> vmatrix = nullptr;
-//MatrixPanel_I2S_DMA *dma_display = nullptr;
-//std::unique_ptr<MatrixPanel_I2S_DMA> dma_display = nullptr;
 
 ///////////////////////////////////////////////////////////////
 
@@ -69,44 +58,7 @@ void setup(){
   // Start EmbUI framework
   embui.begin();
 
-/*
-  HUB75_I2S_CFG mxconfig ={
-    .mx_width = 64,
-    .mx_height = 64,
-    .chain_length = 4,
-  };
 
-    mxconfig.driver = HUB75_I2S_CFG::FM6126A;
-    mxconfig.i2sspeed = HUB75_I2S_CFG::HZ_20M;
-    mxconfig.gpio.e = CH_E;
-
-//  mxconfig.clkphase = true;
-//  HUB75_I2S_CFG::i2s_pins _pins={R1, G1, BL1, R2, G2, BL2, CH_A, CH_B, CH_C, CH_D, CH_E, LAT, OE, CLK};
-//  HUB75_I2S_CFG mxconfig(64, 64, 4, _pins, HUB75_I2S_CFG::FM6126A);
-//  mxconfig.i2sspeed = HUB75_I2S_CFG::HZ_20M;
-
-*/
-/*
-  HUB75_I2S_CFG mxconfig; //64, 64, 4);
-  mxconfig.mx_width = 64;
-  mxconfig.mx_height = 64;
-  mxconfig.chain_length = 4;
-  mxconfig.driver = HUB75_I2S_CFG::FM6126A;
-  mxconfig.fastmode = true;
-  mxconfig.i2sspeed = HUB75_I2S_CFG::HZ_20M;
-  mxconfig.gpio.e = CH_E;
-*/
-  //dma_display = std::unique_ptr<MatrixPanel_I2S_DMA>(new MatrixPanel_I2S_DMA(mxconfig));
-
-/*
-  dma_display = new MatrixPanel_I2S_DMA(mxconfig);
-
-  dma_display->begin();
-  dma_display->setBrightness8(255);
-  //dma_display->setLatBlanking(8);
-
-  vmatrix = std::unique_ptr<VirtualMatrixPanel>(new VirtualMatrixPanel((*dma_display), NUM_ROWS, NUM_COLS, PANEL_RES_X, PANEL_RES_Y, embui.param(FPSTR(V_MX_OS)).toInt(), embui.param(FPSTR(V_MX_OV)).toInt()) );
-*/
   #ifdef USE_FTP
       ftp_setup(); // запуск ftp-сервера
   #endif

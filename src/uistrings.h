@@ -35,7 +35,12 @@ static const char A_DISP_CLEAR[] PROGMEM = "a_dcl";         // clear display
 static const char A_GFX_CTRLS[] PROGMEM = "a_gfxctrls";         // clear display
 
 // params
-static const char p1[] = "p1";
-static const char p2[] = "p2";
-static const char p3[] = "p3";
-static const char p4[] = "p4";
+static const char p1[] = "1";
+static const char p2[] = "2";
+static const char p3[] = "3";
+static const char p4[] = "4";
+
+static const char b1[] = "b1";
+static const char b2[] = "b2";
+static const char b3[] = "b3";
+static const char b4[] = "b4";

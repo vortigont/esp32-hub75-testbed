@@ -17,7 +17,7 @@
 
 // Display obejcts
 //std::unique_ptr<VirtualMatrixPanel> vmatrix = nullptr;
-//MatrixPanel_I2S_DMA *dma_display = nullptr;
+extern MatrixPanel_I2S_DMA *dma_display;
 
 /**
  * переопределяем метод из фреймворка, регистрирующий необходимы нам в проекте переменные и методы обработки
@@ -35,7 +35,7 @@ void create_parameters(){
     *  - базовые настройки MQTT
     *  - OTA обновление прошивки и образа файловой системы
     */
-    BasicUI::add_sections();
+    basicui::add_sections();
 
     /**
      * регистрируем свои переменные
@@ -70,6 +70,9 @@ void create_parameters(){
     // регуляторы
     embui.section_handle_add(FPSTR(V_DISP_BRT), ui_setbrt);           // регулятор яркости
 
+    embui.section_handle_add(b1, a_b1);           // регулятор яркости
+    embui.section_handle_add(b2, a_b2);           // регулятор яркости
+
     //embui.section_handle_add(F("swpal"), sw_pallete);     // смена палитры
     //embui.section_handle_add(F("ptrn"), sw_pattern);      // action - change patters
 };
@@ -92,7 +95,7 @@ void section_main_frame(Interface *interf, JsonObject *data){
 
   if(!embui.sysData.wifi_sta){                      // если контроллер не подключен к внешней AP, сразу открываем вкладку с настройками WiFi
     LOG(println, F("UI: Opening network setup section"));
-    BasicUI::block_settings_netw(interf, data);
+    basicui::block_settings_netw(interf, data);
   } else {
     block_hub75setup(interf, data);                   // Строим блок с demo переключателями
   }
@@ -120,7 +123,7 @@ void block_menu(Interface *interf, JsonObject *data){
      * это автоматически даст доступ ко всем связанным секциям с интерфейсом для системных настроек
      * 
      */
-    BasicUI::opt_setup(interf, data);       // пункт меню "настройки"
+    basicui::opt_setup(interf, data);       // пункт меню "настройки"
     interf->json_section_end();
 }
 
@@ -237,7 +240,6 @@ void block_gfx(Interface *interf, JsonObject *data){
 
   // GFX selector
   interf->select(FPSTR(T_GFX), (*data)[FPSTR(T_GFX)].as<uint>(), F("GFX shapes"), true);
-//  interf->select(FPSTR(S_SHAPE), (*data)[FPSTR(S_SHAPE)].as<uint>(), F("GFX shapes"), true);
   interf->option(0, F("Solid fill"));
   interf->option(1, F("Gradient"));
   interf->option(2, F("Lines"));
@@ -256,6 +258,9 @@ void block_gfx(Interface *interf, JsonObject *data){
       interf->range(p1, 255, 0, 255, 1, F("R max"), false);
       interf->range(p2, 255, 0, 255, 1, F("G max"), false);
       interf->range(p3, 255, 0, 255, 1, F("B max"), false);
+
+      interf->button(b1, F("Flip buff"));
+      interf->button(b2, F("Show buff"));
       break;
     }
     case 2: {   // Lines
@@ -280,7 +285,7 @@ void block_gfx(Interface *interf, JsonObject *data){
       break;
     }
     default: {
-      interf->comment("Just a comment");      
+      interf->comment("Just a comment");
     }
   }
   interf->hidden("ctrl", (*data)[FPSTR(T_GFX)].as<String>());
@@ -295,7 +300,7 @@ void block_gfx(Interface *interf, JsonObject *data){
  * обработчик статуса (периодического опроса контроллера веб-приложением)
  */
 void pubCallback(Interface *interf){
-    BasicUI::embuistatus(interf);
+    basicui::embuistatus(interf);
 }
 
 /**
@@ -378,4 +383,15 @@ void aGFXctrls(Interface *interf, JsonObject *data){
     }
   }
 
+}
+
+
+void a_b1(Interface *interf, JsonObject *data){
+//  dispFlip();
+  dma_display->flipDMABuffer();
+}
+
+void a_b2(Interface *interf, JsonObject *data){
+//  dispShow();
+//  dma_display->showDMABuffer();
 }
